@@ -1,0 +1,24 @@
+---
+- hosts: all
+  gather_facts: true
+  roles:
+    - common
+  tags: common
+
+- hosts: unbound
+  gather_facts: false
+  roles:
+    - unbound
+  tags: unbound
+
+- hosts: dnsmasq
+  gather_facts: false
+  roles:
+      - dnsmasq
+  tags: dnsmasq
+
+- hosts: acng
+  gather_facts: false
+  roles:
+      - acng
+  tags: acng

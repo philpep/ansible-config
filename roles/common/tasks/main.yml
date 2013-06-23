@@ -1,0 +1,33 @@
+---
+- name: Configure APT sources.list
+  template: src=sources.list.j2 dest=/etc/apt/sources.list
+  notify: apt update
+
+- name: Configure apt.conf
+  template: src=apt.conf.j2 dest=/etc/apt/apt.conf
+
+- name: Install common packages
+  apt: pkg=$item state=latest
+  with_items:
+    - tmux
+    - zsh
+    - git
+    - wget
+    - vim-nox
+    - lsb-release
+    - less
+    - exuberant-ctags
+
+- name: Set root shell to zsh
+  user: name=root shell=/usr/bin/zsh
+
+- name: Copy dotfiles
+  copy: src=$item dest=/root/.$item owner=root group=root mode=0644
+  with_items:
+    - zshrc
+    - vimrc
+    - gitconfig
+    - tmux.conf
+
+- name: Copy ssh keys
+  copy: src=authorized_keys dest=/root/.ssh/authorized_keys owner=root group=root mode=0644

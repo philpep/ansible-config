@@ -1,0 +1,14 @@
+server:
+    auto-trust-anchor-file: "/var/lib/unbound/root.key"
+    interface: 0.0.0.0
+    interface: ::0
+    access-control: 192.168.31.0/24 allow
+    access-control: 192.168.42.0/24 allow
+    access-control: 192.168.95.0/24 allow
+    access-control: 10.31.254.0/24 allow
+{% for domain, hosts in unbound_local.items() %}
+{% for host, ip in hosts.items() %}
+    local-data: "{{ host }}.{{ domain }} IN A {{ ip }}"
+    local-data-ptr: "{{ ip }} {{ host }}.{{ domain }}"
+{% endfor %}
+{% endfor %}

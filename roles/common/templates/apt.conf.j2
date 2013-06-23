@@ -1,0 +1,6 @@
+APT::Install-Recommends "0";
+APT::Install-Suggests "0";
+{% if common.acng_url %}
+Acquire::http::Proxy "{{ common.acng_url }}";
+{% endif %}
+APT::Periodic::Update-Package-Lists "1";

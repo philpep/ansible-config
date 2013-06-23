@@ -1,0 +1,7 @@
+{% for key, value in dnsmasq.items() %}
+{{ key }}={{ value }}
+{% endfor %}
+
+{% for host in dnsmasq_dhcp_host %}
+dhcp-host={{ host }}
+{% endfor %}
