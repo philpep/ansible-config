@@ -17,4 +17,4 @@ dnsmasq_dhcp_host:
   - aa:00:00:66:7d:8c,puppet-test,192.168.31.16
   - aa:00:00:6c:a0:45,bt,192.168.31.17
   - aa:00:00:3f:b7:c0,rhizome,192.168.31.11
-
+  - aa:00:00:6b:ab:cc,test,192.168.31.15

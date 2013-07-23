@@ -1,5 +1,8 @@
-deb http://ftp.fr.debian.org/debian {{ ansible_lsb['codename'] }} main contrib non-free
+deb http://ftp.fr.debian.org/debian {{ ansible_lsb['codename'] }} main contrib non-free
 {% if ansible_lsb['codename'] != 'jessie' %}{# not yet available #}
-deb http://ftp.fr.debian.org/debian {{ ansible_lsb['codename'] }}-updates main contrib non-free
+deb http://ftp.fr.debian.org/debian {{ ansible_lsb['codename'] }}-updates main contrib non-free
+{% endif %}
+{% if ansible_lsb['codename'] == 'wheezy' %}
+deb http://ftp.fr.debian.org/debian {{ ansible_lsb['codename'] }}-backports main contrib non-free
 {% endif %}
 deb http://security.debian.org/ {{ ansible_lsb['codename'] }}/updates main contrib non-free

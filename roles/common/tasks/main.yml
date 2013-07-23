@@ -17,17 +17,34 @@
     - lsb-release
     - less
     - exuberant-ctags
+    - ca-certificates
 
 - name: Set root shell to zsh
   user: name=root shell=/usr/bin/zsh
 
-- name: Copy dotfiles
-  copy: src=$item dest=/root/.$item owner=root group=root mode=0644
+- name: Install dotfiles
+  git: repo=https://github.com/philpep/dotfiles dest=/root/dotfiles
+       force=no update=no
+  register: dotfiles
+
+- name: Install submodule
+  command: chdir=/root/dotfiles git submodule {{ item }}
   with_items:
-    - zshrc
-    - vimrc
-    - gitconfig
-    - tmux.conf
+    - init
+    - update
+  when: dotfiles.changed
+
+- name: Setup dotfiles links
+  command: chdir=/root/dotfiles bash install.sh
+  when: dotfiles.changed
+
+- name: Install vim plugins
+  command: vim +BundleInstall +qall
+  when: dotfiles.changed
 
 - name: Copy ssh keys
-  copy: src=authorized_keys dest=/root/.ssh/authorized_keys owner=root group=root mode=0644
+  authorized_key: user=root key="{{ lookup('file', item) }}"
+  with_items:
+    - bezout.pub
+    - backup.pub
+    - shen.pub
