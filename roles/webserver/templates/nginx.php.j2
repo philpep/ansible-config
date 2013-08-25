@@ -1,0 +1,13 @@
+{% extends 'nginx.base.j2' %}
+{% block body %}
+set $fcgi_https off;
+if ($scheme = https) {
+  set $fcgi_https on;
+}
+location ~ \.php$ {
+  fastcgi_pass unix:/var/run/php5-fpm-{{ user }}.sock;
+  fastcgi_index index.php;
+  fastcgi_param HTTPS $fcgi_https;
+  include fastcgi_params;
+}
+{% endblock %}

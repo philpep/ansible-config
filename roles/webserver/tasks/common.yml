@@ -1,0 +1,42 @@
+---
+- name: Install packages
+  apt: pkg=$item state=present
+  with_items:
+    - mysql-server
+    - postgresql
+    - php5-fpm
+    - php5-pgsql
+    - php5-mysql
+    - php5-gd
+    - php5-curl
+    - python-mysqldb
+    - python-psycopg2
+
+- name: Install nginx with naxsi from backports
+  apt: pkg=nginx-naxsi default_release=wheezy-backports state=present
+
+- name: Configure php timezone
+  ini_file: dest=/etc/php5/fpm/php.ini
+            section=Date
+            option=date.timezone
+            value="Europe/Paris"
+
+- name: Configure php disabled_functions
+  ini_file: dest=/etc/php5/fpm/php.ini
+            section=PHP
+            option=disable_functions
+            value=pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wexitstatus,pcntl_wtermsig,pcnt_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setprioriy,show_source,shell_exec,passthru,exec,eval,proc_terminate,system,parse_ini_file
+# TODO: proc_open, popen, curl_exec, curl_multi_exec, phpinfo
+  notify: reload php5-fpm
+
+- name: Configure php error_reporting
+  ini_file: dest=/etc/php5/fpm/php.ini
+            section=PHP
+            option=error_reporting
+            value="E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE"
+  notify: reload php5-fpm
+
+- name: Ensure /bin/false is a valid shell
+  lineinfile: dest=/etc/shells
+              regexp="^/bin/false"
+              line="/bin/false"

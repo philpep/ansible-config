@@ -1,0 +1,14 @@
+[{{ user }}]
+listen = /var/run/php5-fpm-{{ user }}.sock
+user = www-{{ user }}
+group = www-{{ user }}
+php_admin_value[open_basedir] = /home/{{ user }}
+php_admin_value[session.save_path] = /home/{{ user }}/tmp
+php_admin_value[upload_tmp_dir] = /home/{{ user }}/tmp
+chdir = /
+pm = dynamic
+pm.start_servers = 3
+pm.min_spare_servers = 2
+pm.max_spare_servers = 4
+pm.max_children = 10
+pm.max_requests = 500

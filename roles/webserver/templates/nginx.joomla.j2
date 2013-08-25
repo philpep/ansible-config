@@ -1,0 +1,24 @@
+{% extends 'nginx.php.j2' %}
+{% block body %}
+index index.php index.html index.htm default.html default.htm;
+# Support Clean (aka Search Engine Friendly) URLs
+location / {
+  try_files $uri $uri/ /index.php?$args;
+}
+
+# deny running scripts inside writable directories
+location ~* /(images|cache|media|logs|tmp)/.*\.(php|pl|py|jsp|asp|sh|cgi)$ {
+  return 403;
+  error_page 403 /403_error.html;
+}
+
+# caching of files 
+location ~* \.(ico|pdf|flv)$ {
+  expires 1y;
+}
+
+location ~* \.(js|css|png|jpg|jpeg|gif|swf|xml|txt)$ {
+  expires 14d;
+}
+{{ super() }}
+{% endblock %}

@@ -1,0 +1,15 @@
+---
+- name: Create site {{ name }} root directory
+  file: path=/home/{{ user }}/{{ name }}
+        owner={{ user }} group=www-{{ user }}
+        state=directory
+
+- name: Configure nginx for {{ name }}
+  template: src=nginx.{{ template }}.j2
+            dest=/etc/nginx/sites-available/{{ name }}.conf
+  notify: reload nginx
+
+- name: Ensure {{ name }} config is enabled
+  file: src=/etc/nginx/sites-available/{{ name }}.conf
+        dest=/etc/nginx/sites-enabled/{{ name }}.conf
+        state=link
