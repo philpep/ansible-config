@@ -1,0 +1,18 @@
+---
+- name: Install check_mk
+  apt: name=$item state=present
+  with_items:
+    - check-mk-agent
+    - xinetd
+
+- name: Configure xinetd for check_mk
+  lineinfile: dest=/etc/xinetd.d/check_mk
+              regexp="only_from"
+              line="only_from = {{ check_mk_server }}"
+  notify: restart xinetd
+
+- name: Configure xinetd for check_mk
+  lineinfile: dest=/etc/xinetd.d/check_mk
+              regexp="disable"
+              line="disable = no"
+  notify: restart xinetd

@@ -4,7 +4,7 @@ sheeva
 aldo
 rhizome
 kbuild64
-monitoring
+monitoring check_mk_server=127.0.0.1
 bt
 
 [stj]

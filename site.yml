@@ -2,8 +2,10 @@
 - hosts: all
   gather_facts: true
   roles:
-    - common
-  tags: common
+    - role: common
+      tags: common
+    - role: check_mk
+      tags: check_mk
 
 - hosts: unbound
   gather_facts: false
