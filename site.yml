@@ -2,6 +2,12 @@
 - hosts: all
   gather_facts: true
   roles:
+    - apt
+  tags: apt
+
+- hosts: all
+  gather_facts: false
+  roles:
     - role: common
       tags: common
     - role: check_mk
