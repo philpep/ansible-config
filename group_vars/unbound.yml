@@ -32,3 +32,4 @@ unbound_local:
     gitlab: 10.31.254.42
     jenkins: 10.31.240.11
     test: 192.168.31.15
+    fermat: 192.168.42.81

@@ -19,6 +19,7 @@ psql91
 ussh
 lebesgue
 web
+fermat
 
 [unbound]
 lebesgue
@@ -30,3 +31,6 @@ sheeva
 [acng]
 aldo
 lebesgue
+
+[webserver]
+fermat

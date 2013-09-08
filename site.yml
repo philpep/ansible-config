@@ -30,3 +30,12 @@
   roles:
       - acng
   tags: acng
+
+- hosts: webserver
+  gather_facts: no
+  roles:
+    - role: webserver
+      name: oujevipo.fr
+      user: pierrec
+      template: joomla
+  tags: webserver
