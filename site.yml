@@ -1,12 +1,12 @@
 ---
 - hosts: all
-  gather_facts: true
+  gather_facts: yes
   roles:
     - apt
   tags: apt
 
 - hosts: all
-  gather_facts: false
+  gather_facts: no
   roles:
     - role: common
       tags: common
@@ -14,19 +14,19 @@
       tags: check_mk
 
 - hosts: unbound
-  gather_facts: false
+  gather_facts: no
   roles:
     - unbound
   tags: unbound
 
 - hosts: dnsmasq
-  gather_facts: false
+  gather_facts: no
   roles:
       - dnsmasq
   tags: dnsmasq
 
 - hosts: acng
-  gather_facts: false
+  gather_facts: no
   roles:
       - acng
   tags: acng
