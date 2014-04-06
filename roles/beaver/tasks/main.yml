@@ -1,0 +1,33 @@
+---
+- name: Ensure required packages are installed
+  apt: pkg={{ item }} state=present
+  with_items:
+    - python-virtualenv
+    - supervisor
+
+- name: Add user beaver
+  user: >
+    name=beaver
+    createhome=no
+    group=adm
+    home=/usr/share/beaver
+    shell=/usr/sbin/nologin
+    state=present
+    system=yes
+
+- name: Upgrade pip
+  pip: name=pip extra_args=-U virtualenv=/usr/share/beaver state=present
+
+- name: Install beaver
+  pip: name=beaver virtualenv=/usr/share/beaver state=present
+
+- name: Install beaver config
+  template: src=beaver.conf.j2 dest=/etc/beaver.conf
+  notify: reload supervisor
+
+- name: Install supervisor config
+  copy: src=supervisor.conf dest=/etc/supervisor/conf.d/beaver.conf
+  notify: reload supervisor
+
+- name: Ensure supervisor is running
+  service: name=supervisor state=started

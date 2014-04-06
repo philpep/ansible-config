@@ -1,0 +1,23 @@
+---
+- hosts: all
+  gather_facts: yes
+  roles:
+    - { role: apt, tags: apt }
+    - { role: common, tags: common }
+    - { role: check_mk, tags: check_mk }
+    - { role: beaver, tags: beaver }
+
+- hosts: unbound
+  gather_facts: no
+  roles:
+    - { role: unbound, tags: unbound }
+
+- hosts: dnsmasq
+  gather_facts: no
+  roles:
+      - { role: dnsmasq, tags: dnsmasq }
+
+- hosts: acng
+  gather_facts: no
+  roles:
+      - { role: acng, tags: acng }

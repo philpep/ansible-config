@@ -4,4 +4,4 @@
 
 - name: Configure unbound
   template: src=unbound.conf.j2 dest=/etc/unbound/unbound.conf
-  notify: restart unbound
+  notify: reload unbound

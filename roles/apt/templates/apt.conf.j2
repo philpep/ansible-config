@@ -4,3 +4,12 @@ APT::Install-Suggests "0";
 Acquire::http::Proxy "{{ common.acng_url }}";
 {% endif %}
 APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Unattended-Upgrade "1";
+
+# no-cache
+DPkg::Post-Invoke { "rm -f /var/cache/apt/archives/*.deb /var/cache/apt/archives/partial/*.deb /var/cache/apt/*.bin || true"; };
+APT::Update::Post-Invoke { "rm -f /var/cache/apt/archives/*.deb /var/cache/apt/archives/partial/*.deb /var/cache/apt/*.bin || true"; };
+Dir::Cache::pkgcache ""; Dir::Cache::srcpkgcache "";
+
+# no-languages
+Acquire::Languages "none";

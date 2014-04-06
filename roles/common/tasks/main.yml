@@ -1,6 +1,6 @@
 ---
 - name: Install common packages
-  apt: pkg=$item state=latest
+  apt: pkg={{ item }} state=latest
   with_items:
     - tmux
     - zsh
@@ -11,6 +11,7 @@
     - less
     - exuberant-ctags
     - ca-certificates
+    - unattended-upgrades
 
 - name: Set root shell to zsh
   user: name=root shell=/usr/bin/zsh

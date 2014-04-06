@@ -6,6 +6,9 @@ server:
     access-control: 192.168.42.0/24 allow
     access-control: 192.168.95.0/24 allow
     access-control: 10.31.254.0/24 allow
+    statistics-interval: 0
+    extended-statistics: yes
+    statistics-cumulative: yes
 {% for domain, hosts in unbound_local.items() %}
 {% for host, ip in hosts.items() %}
     local-data: "{{ host }}.{{ domain }} IN A {{ ip }}"

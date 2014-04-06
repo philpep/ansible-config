@@ -1,0 +1,4 @@
+---
+beaver_rabbitmq_host: localhost
+beaver_rabbitmq_username: guest
+beaver_rabbitmq_password: guest

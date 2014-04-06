@@ -6,6 +6,7 @@ rhizome
 kbuild64
 monitoring check_mk_server=127.0.0.1
 bt
+ci
 
 [stj]
 bezout
@@ -19,7 +20,6 @@ psql91
 ussh
 lebesgue
 web
-fermat
 
 [unbound]
 lebesgue
@@ -31,6 +31,3 @@ sheeva
 [acng]
 aldo
 lebesgue
-
-[webserver]
-fermat

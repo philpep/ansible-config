@@ -1,6 +1,6 @@
 ---
 - name: Install check_mk
-  apt: name=$item state=present
+  apt: name={{ item }} state=present
   with_items:
     - check-mk-agent
     - xinetd
