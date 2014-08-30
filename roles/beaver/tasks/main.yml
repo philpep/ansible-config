@@ -22,8 +22,16 @@
   pip: name=beaver virtualenv=/usr/share/beaver state=present
 
 - name: Install beaver config
-  template: src=beaver.conf.j2 dest=/etc/beaver.conf
+  template: >
+    src=beaver.conf.j2
+    dest=/etc/beaver.conf
+    owner=root
+    group=adm
+    mode=0640
   notify: reload supervisor
+
+- name: Create /etc/beaver.d
+  file: path=/etc/beaver.d owner=root group=adm mode=0770 state=directory
 
 - name: Install supervisor config
   copy: src=supervisor.conf dest=/etc/supervisor/conf.d/beaver.conf
