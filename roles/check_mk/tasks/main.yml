@@ -4,6 +4,10 @@
   with_items:
     - check-mk-agent
     - xinetd
+    - nagios-plugins-basic
+
+- name: Install mrpe.cfg
+  copy: src=mrpe.cfg dest=/etc/check_mk/mrpe.cfg
 
 - name: Configure xinetd for check_mk
   lineinfile: dest=/etc/xinetd.d/check_mk
